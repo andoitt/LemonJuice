@@ -29,14 +29,15 @@ class ButtonUI(
         )
     )
 
-    fun checkInitState() {
+    fun click() {
+        interaction.perform(androidx.test.espresso.action.ViewActions.click())
+    }
+
+    fun checkInitialState() {
         interaction.check(matches(isEnabled()))
             .check(matches(withText(R.string.next)))
     }
 
-    fun click() {
-        interaction.perform(androidx.test.espresso.action.ViewActions.click())
-    }
 
     fun checkSqueezeState() {
         interaction.check(matches(ViewMatchers.isNotEnabled()))
@@ -54,7 +55,7 @@ class ButtonUI(
     }
 
     fun checkFinishState() {
-        interaction.check(matches(Matchers.not(isEnabled())))
+        interaction.check(matches(isEnabled()))
             .check(matches(withText(R.string.start_again)))
     }
 

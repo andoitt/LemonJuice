@@ -28,16 +28,16 @@ class TextUI(
         )
     )
 
-    fun checkInitState() {
+    fun checkInitialState() {
         interaction.check(matches(isDisplayed()))
             .check(matches(withText(R.string.hint_select_lemon)))
     }
 
     fun checkSqueezeState() {
-        interaction.check(matches(withText(R.string.hint_start_squeezing)))
+        interaction.check(matches(withText(R.string.squeeze_lemon)))
     }
     fun checkProcessState() {
-        interaction.check(matches(withText(R.string.hint_start_squeezing)))
+        interaction.check(matches(withText(R.string.squeeze_lemon)))
     }
 
     fun checkMadeState() {
@@ -48,8 +48,5 @@ class TextUI(
         interaction.check(matches(withText(R.string.hint_start_again)))
     }
 
-    fun click() {
-        interaction.perform(ViewActions.click())
-    }
 
 }

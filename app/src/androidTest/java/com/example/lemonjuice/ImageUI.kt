@@ -2,7 +2,6 @@ package com.example.lemonjuice
 
 import android.view.View
 import android.widget.ImageButton
-import androidx.appcompat.widget.AppCompatButton
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
@@ -20,23 +19,24 @@ class ImageUI(
 
     private val interaction = Espresso.onView(
         Matchers.allOf(
-            ViewMatchers.withId(R.id.ImageButton),
+            ViewMatchers.withId(R.id.imageButton),
             ViewMatchers.isAssignableFrom(ImageButton::class.java),
             parent,
             ViewMatchers.withParent(withId(rootId)),
         )
     )
 
-    fun checkInitState() {
-       interaction.check(ViewAssertions.matches(ViewMatchers.isClickable()))
-           .check(ViewAssertions.matches(DrawableMatcher(R.drawable.tree)))    // отображение картинки (  Tree picture)
-           .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+  fun checkInitialState() {
+      interaction.check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+          .check(ViewAssertions.matches(not(ViewMatchers.isClickable())))
+          .check(ViewAssertions.matches(DrawableMatcher(R.drawable.tree)))   // отображение pict tree
+  }
 
-    }
 
     fun checkSqueezeState() {
         interaction.check(ViewAssertions.matches(ViewMatchers.isClickable()))
-            .check(ViewAssertions.matches(DrawableMatcher(R.drawable.lemon)))    // next picture
+            .check(ViewAssertions.matches(DrawableMatcher(R.drawable.lemon)))
+
     }
 
     fun checkProcessState() {
@@ -48,9 +48,9 @@ class ImageUI(
         interaction.check(ViewAssertions.matches(not(ViewMatchers.isClickable())))
             .check(ViewAssertions.matches(DrawableMatcher(R.drawable.lemonade)))
     }
+
     fun checkFinishState() {
-        interaction
-            .check(ViewAssertions.matches(not(ViewMatchers.isClickable())))
+        interaction.check(ViewAssertions.matches(not(ViewMatchers.isClickable())))
             .check(ViewAssertions.matches(DrawableMatcher(R.drawable.glass)))
     }
 

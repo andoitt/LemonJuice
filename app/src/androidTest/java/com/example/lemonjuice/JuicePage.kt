@@ -16,9 +16,9 @@ class JuicePage() {
 
 
     fun checkInitialState() {
-        imageUI.checkInitState()
-        buttonUI.checkInitState()
-        textUI.checkInitState()
+        imageUI.checkInitialState()
+        buttonUI.checkInitialState()
+        textUI.checkInitialState()
     }
 
 
@@ -27,9 +27,7 @@ class JuicePage() {
     }
 
     fun clickImage() {
-      //  buttonUI.click()
-        textUI.click()
-
+        imageUI.click()
     }
 
     fun clickStartAgain() {
