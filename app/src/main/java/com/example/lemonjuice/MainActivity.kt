@@ -1,10 +1,15 @@
 package com.example.lemonjuice
 
+import android.os.Build
 import android.os.Bundle
+import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.lemonjuice.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var viewModel: JuiceViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
@@ -12,26 +17,67 @@ class MainActivity : AppCompatActivity() {
 
         lateinit var uiState: UiState
 
-        val juiceViewModel = JuiceViewModel(Repository.Base())
+         viewModel = (application as JuiceApp).viewModel
 
-     //   val juiceViewModel = (application as LemonJuice).viewModel
-
-        binding.imageButton.setOnClickListener {
-            uiState = juiceViewModel.handleImage()        //todo какаяя метода?
-            uiState.update(binding)
-        }
 
         binding.actionButton.setOnClickListener {
-            uiState = uiState.handleAction(juiceViewModel)
+            uiState = binding.actionButton.handleAction(viewModel)
             uiState.update(binding)
         }
 
-   /*     binding.textView.setOnClickListener{
-            val uiState = viewModel.checkTextView()                        //todo нужно ли вообще?
+        binding.imageButton.setOnClickListener {
+            uiState = viewModel.handleImage()
             uiState.update(binding)
-        }*/
+        }
 
-        uiState = juiceViewModel.init()
-        uiState.update(binding)
+
+
+
+        uiState = viewModel.init().also {
+            it.update(binding)
+        }
+        if (savedInstanceState == null)
+            uiState = viewModel.init().also {
+                it.update(binding)
+            }
     }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+    /*  uiState = viewModel.init()
+       uiState.update(binding)*/
+
+
+
+    /* uiState = if (savedInstanceState == null) {
+         viewModel.init().also {
+             it.update(binding)
+         }
+     } else {
+         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+             savedInstanceState.getSerializable(KEY, UiState::class.java) as UiState
+         } else {
+             savedInstanceState.getSerializable(KEY) as UiState
+         }
+     }
+
+     fun onSaveInstanceState(outState: Bundle) {
+         super.onSaveInstanceState(outState)
+         outState.putSerializable(KEY, uiState)
+     }*/
+
+    }
+
+/*    companion object {
+        private const val KEY = "uiStateKey"
+    }
+}*/

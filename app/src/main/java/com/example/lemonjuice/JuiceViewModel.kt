@@ -1,66 +1,66 @@
 package com.example.lemonjuice
 
- class JuiceViewModel(
+class JuiceViewModel(
     private val repository: Repository
-): Actions {
+) : Actions {
 
-     fun init(): UiState = UiState.Initial(
-         title = TitleUiState.Initial,
-         image = ImageUiState.Initial,
-         button = ButtonUiState.Initial,
-     )
-
-
-     override fun goToSqueeze(): UiState = UiState.Squeeze(
-         title = TitleUiState.Squeeze,
-         image = ImageUiState.Squeeze,
-         button = ButtonUiState.Squeeze,
-     )
-
-     fun handleImage(): UiState {
-         repository.addCounter()
-         return if (repository.isMax()) {
-             UiState.Process(
-                 title = TitleUiState.Process,
-                 image = ImageUiState.Process,
-                 button = ButtonUiState.Process,
-             )
-         } else {
-             UiState.Squeeze(
-                 title = TitleUiState.Squeeze,
-                 image = ImageUiState.Squeeze,
-                 button = ButtonUiState.Squeeze,
-
-                 )
-         }
-     }
+    fun init(): UiState = UiState.Initial(
+        title = TitleUiState.Initial,
+        image = ImageUiState.Initial,
+        button = ActionButtonUiState.Initial,
+    )
 
 
-     override fun goToMade(): UiState =
-         UiState.Made(
-             title = TitleUiState.Made,
-             image = ImageUiState.Made,
-             button = ButtonUiState.Made,
-         )
+    override fun goToSqueeze(): UiState = UiState.Squeeze(
+        title = TitleUiState.Squeeze,
+        image = ImageUiState.Squeeze,
+        button = ActionButtonUiState.Squeeze,
+    )
+
+    fun handleImage(): UiState {
+        repository.addCounter()
+        return if (repository.isMax()) {
+            UiState.Process(
+                title = TitleUiState.Process,
+                image = ImageUiState.Process,
+                button = ActionButtonUiState.Process,
+            )
+        } else {
+            UiState.Squeeze(
+                title = TitleUiState.Squeeze,
+                image = ImageUiState.Squeeze,
+                button = ActionButtonUiState.Squeeze,
+
+                )
+        }
+    }
 
 
-     override fun goToFinish(): UiState = UiState.Finish(
-         title = TitleUiState.Finish,
-         image = ImageUiState.Finish,
-         button = ButtonUiState.Finish,
-     )
+    override fun goToMade(): UiState =
+        UiState.Made(
+            title = TitleUiState.Made,
+            image = ImageUiState.Made,
+            button = ActionButtonUiState.Made,
+        )
 
-     override fun startAgain(): UiState {
-         repository.reset()
-         return init()
-     }
- }
 
- interface Actions {
+    override fun goToFinish(): UiState = UiState.Finish(
+        title = TitleUiState.Finish,
+        image = ImageUiState.Finish,
+        button = ActionButtonUiState.Finish,
+    )
 
-     fun goToSqueeze() : UiState
-     fun goToMade() : UiState
-     fun goToFinish() : UiState
-     fun startAgain() : UiState
+    override fun startAgain(): UiState {
+        repository.reset()
+        return init()
+    }
+}
 
- }
+interface Actions {
+
+    fun goToSqueeze(): UiState
+    fun goToMade(): UiState
+    fun goToFinish(): UiState
+    fun startAgain(): UiState
+
+}

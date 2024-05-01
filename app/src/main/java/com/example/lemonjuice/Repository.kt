@@ -1,24 +1,32 @@
 package com.example.lemonjuice
 
+import android.content.SharedPreferences
+
 interface Repository {
 
     fun addCounter()
     fun isMax() : Boolean
     fun reset()
 
-    class Base(): Repository {
-        private var currentTimesClicked = 0
+    class Base(
+        private val currentTimesClicked: IntCache
+    ):  Repository {
+
+
+      //  private var currentTimesClicked = 0
 
         override fun addCounter() {
-            currentTimesClicked++
+            val currentClicks = currentTimesClicked.read()
+            val newClicks = currentClicks + 1
+            currentTimesClicked.save(newClicks)
 
         }
         override fun isMax() : Boolean {
-            return currentTimesClicked == 5
+            return currentTimesClicked.read() == 5
         }
 
         override fun reset() {
-            currentTimesClicked = 0
+            currentTimesClicked.save(0)
         }
     }
 }

@@ -1,84 +1,83 @@
 package com.example.lemonjuice
 
 import com.example.lemonjuice.databinding.ActivityMainBinding
+import java.io.Serializable
 import java.lang.IllegalStateException
 
-interface UiState {
+interface UiState : Serializable {
 
 
     fun update(binding: ActivityMainBinding)
-    fun handleAction(gameViewModel: Actions): UiState
+
+   // fun handleAction(juiceViewModel: Actions): UiState
 
     abstract class Abstract(
         private val title: TitleUiState,
         private val image: ImageUiState,
-        private val button: ButtonUiState
+        private val button: ActionButtonUiState
     ) : UiState {
         override fun update(binding: ActivityMainBinding) = with(binding) {
             title.update(textView)
-            image.update(imageButton)
-            button.update(actionButton)
+            imageButton.updateUiState(image)
+            button.updateUiState(button)
         }
     }
 
     data class Initial(
         private val title: TitleUiState,
         private val image: ImageUiState,
-        private val button: ButtonUiState
+        private val button: ActionButtonUiState
     ) : Abstract(title, image, button) {
 
-        override fun handleAction(gameViewModel: Actions): UiState {
-            return gameViewModel.goToSqueeze()
-        }
+    /*    override fun handleAction(juiceViewModel: Actions): UiState {
+            return juiceViewModel.goToSqueeze()
+        }*/
     }
-
 
     data class Squeeze(
         private val title: TitleUiState,
         private val image: ImageUiState,
-        private val button: ButtonUiState
+        private val button: ActionButtonUiState
     ) : Abstract(title, image, button) {
 
-        override fun handleAction(gameViewModel: Actions): UiState {
+  /*      override fun handleAction(juiceViewModel: Actions): UiState {
             throw IllegalStateException()
-        }
+        }*/
     }
-
 
     data class Process(
         private val title: TitleUiState,
         private val image: ImageUiState,
-        private val button: ButtonUiState
+        private val button: ActionButtonUiState
     ) : Abstract(title, image, button) {
 
-        override fun handleAction(gameViewModel: Actions): UiState {
-            return gameViewModel.goToMade()
-        }
+    /*    override fun handleAction(juiceViewModel: Actions): UiState {
+            return juiceViewModel.goToMade()
+        }*/
 
     }
-
 
     data class Made(
         private val title: TitleUiState,
         private val image: ImageUiState,
-        private val button: ButtonUiState
+        private val button: ActionButtonUiState
     ) : Abstract(title, image, button) {
 
-        override fun handleAction(gameViewModel: Actions): UiState {
-            return gameViewModel.goToFinish()
-        }
+   /*     override fun handleAction(juiceViewModel: Actions): UiState {
+            return juiceViewModel.goToFinish()
+        }*/
 
     }
 
     data class Finish(
         private val title: TitleUiState,
         private val image: ImageUiState,
-        private val button: ButtonUiState
+        private val button: ActionButtonUiState
     ) : Abstract(title, image, button) {
 
-        override fun handleAction(gameViewModel: Actions): UiState {
-            return gameViewModel.startAgain()
-        }
+    /*    override fun handleAction(juiceViewModel: Actions): UiState {
+            return juiceViewModel.startAgain()
+        }*/
     }
 }
 

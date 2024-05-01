@@ -1,10 +1,11 @@
 package com.example.lemonjuice
 
-import android.widget.ImageButton
 import androidx.annotation.DrawableRes
+import java.io.Serializable
 
-interface ImageUiState {
+interface ImageUiState : Serializable {
     fun update(imageButton: ImageButton)
+
 
     abstract class Abstract(
         @DrawableRes private val resId: Int,
@@ -16,23 +17,20 @@ interface ImageUiState {
         }
     }
 
-    object Initial : Abstract(R.drawable.tree) {
+    object Initial : Abstract(resId = R.drawable.tree)
 
-    }
 
-    object Squeeze : Abstract(R.drawable.lemon, true) {
+    object Squeeze : Abstract(resId = R.drawable.lemon, true)
 
-    }
 
-    object Process : Abstract(R.drawable.lemon) {
+    object Process : Abstract(resId = R.drawable.lemon)
 
-    }
 
-    object Made : Abstract(R.drawable.lemonade) {
+    object Made : Abstract(resId = R.drawable.lemonade)
 
-    }
 
-    object Finish : Abstract(R.drawable.glass) {
+    object Finish : Abstract(resId = R.drawable.glass)
 
-    }
 }
+
+

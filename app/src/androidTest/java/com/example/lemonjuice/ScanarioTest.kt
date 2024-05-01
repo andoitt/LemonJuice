@@ -45,27 +45,44 @@ class ScenarioTest {
     fun caseNumberOne() {
         var juicePage = JuicePage()
 
-        juicePage.checkInitialState() // init
+        juicePage.checkInitialState()
+        activityScenarioRule.scenario.recreate()
+        juicePage.checkInitialState()                  // init
 
         juicePage.clickNext()
 
         repeat(5) {
-            juicePage.checkSqueezeState() // 2 state
+            juicePage.checkSqueezeState()
+            activityScenarioRule.scenario.recreate()
+            juicePage.checkSqueezeState()
             juicePage.clickImage()
 
         }
 
-        juicePage.checkSqueezeProcessState() //2.1 state
+        juicePage.checkSqueezeProcessState()
+        activityScenarioRule.scenario.recreate()
+        juicePage.checkSqueezeProcessState()
         juicePage.clickNext()
 
 
         juicePage.checkReadyToMadeState()
+        activityScenarioRule.scenario.recreate()
+        juicePage.checkReadyToMadeState()
         juicePage.clickNext()
 
+
+        juicePage.checkFinishState()
+        activityScenarioRule.scenario.recreate()
         juicePage.checkFinishState()
 
         juicePage.clickStartAgain()
-        juicePage.checkInitialState() // 1 state
+        juicePage.checkInitialState()
+        activityScenarioRule.scenario.recreate()
+        juicePage.checkInitialState()
+
+        juicePage.checkInitialState()
+        activityScenarioRule.scenario.recreate()
+        juicePage.checkInitialState()
 
     }
 }
