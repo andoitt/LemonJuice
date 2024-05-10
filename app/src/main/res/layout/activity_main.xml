@@ -1,38 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rootLayout"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:padding="16dp"
-    tools:context=".MainActivity">
+/>
 
-    <com.example.lemonjuice.ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="fitCenter"
-        tools:src="@drawable/tree"/>
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:freezesText="true"
-        tools:text="@string/hint_select_lemon" />
-
-    <com.example.lemonjuice.ActionButton
-        android:id="@+id/actionButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:padding="18dp"
-        android:backgroundTint="#C8A903"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        android:textColor="@color/black"
-        tools:text="@string/select_lemon"/>
-
-</LinearLayout>

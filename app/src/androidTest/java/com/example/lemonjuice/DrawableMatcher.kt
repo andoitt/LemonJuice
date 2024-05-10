@@ -6,6 +6,7 @@ import androidx.annotation.DrawableRes
 import androidx.core.graphics.drawable.toBitmap
 import org.hamcrest.Description
 import org.hamcrest.TypeSafeMatcher
+import org.junit.internal.matchers.TypeSafeMatcher
 
 class DrawableMatcher(@DrawableRes private val id: Int) : TypeSafeMatcher<View>() {
     override fun describeTo(description: Description) {

@@ -1,6 +1,4 @@
-package com.example.lemonjuice
-
-import android.content.SharedPreferences
+package com.example.lemonjuice.repository
 
 interface Repository {
 
@@ -10,12 +8,15 @@ interface Repository {
 
     class Base(
         private val currentTimesClicked: IntCache
-    ):  Repository {
+      //  private val cache: IntCache
 
+    ): Repository {
 
       //  private var currentTimesClicked = 0
 
         override fun addCounter() {
+
+            // cache.save(cache.reade() + 1 )
             val currentClicks = currentTimesClicked.read()
             val newClicks = currentClicks + 1
             currentTimesClicked.save(newClicks)

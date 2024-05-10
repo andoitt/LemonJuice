@@ -1,6 +1,5 @@
-package com.example.lemonjuice
+package com.example.lemonjuice.repository
 
-import android.content.Context
 import android.content.SharedPreferences
 
 interface IntCache {
@@ -17,7 +16,6 @@ interface IntCache {
 
         override fun save(value: Int) {
             permanentStorage.save(value, key)
-
         }
 
         override fun read(): Int {
@@ -40,7 +38,5 @@ interface PermanentStorage {
         override fun read(key: String, default: Int): Int {
             return sharedPreferences.getInt(key, default)
         }
-
     }
-
 }

@@ -1,5 +1,9 @@
 package com.example.lemonjuice
 
+import com.example.lemonjuice.ActionButtonUi.ActionButtonUiState
+import com.example.lemonjuice.ImageButtonUi.ImageUiState
+import com.example.lemonjuice.TextViewUi.TitleUiState
+import com.example.lemonjuice.repository.Repository
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -49,7 +53,7 @@ class JuiceViewModelTest {
         var expected: UiState = UiState.Initial(
             title = TitleUiState.Initial,
             image = ImageUiState.Initial,
-            button = ButtonUiState.Initial,
+            button = ActionButtonUiState.Initial,
         )
         assertEquals(expected, actual)
 
@@ -58,7 +62,7 @@ class JuiceViewModelTest {
         expected = UiState.Squeeze(
             title = TitleUiState.Squeeze,
             image = ImageUiState.Squeeze,
-            button = ButtonUiState.Squeeze,
+            button = ActionButtonUiState.Squeeze,
 
             )
         assertEquals(expected, actual)
@@ -73,7 +77,7 @@ class JuiceViewModelTest {
         expected = UiState.Process(
             title = TitleUiState.Process,
             image = ImageUiState.Process,
-            button = ButtonUiState.Process,
+            button = ActionButtonUiState.Process,
         )
         assertEquals(expected, actual)
 
@@ -82,7 +86,7 @@ class JuiceViewModelTest {
         expected = UiState.Made(
             title = TitleUiState.Made,
             image = ImageUiState.Made,
-            button = ButtonUiState.Made,
+            button = ActionButtonUiState.Made,
         )
         assertEquals(expected, actual)
 
@@ -91,7 +95,7 @@ class JuiceViewModelTest {
         expected = UiState.Finish(
             title = TitleUiState.Finish,
             image = ImageUiState.Finish,
-            button = ButtonUiState.Finish,
+            button = ActionButtonUiState.Finish,
         )
         assertEquals(expected, actual)
 
@@ -100,7 +104,7 @@ class JuiceViewModelTest {
         expected = UiState.Initial(
             title = TitleUiState.Initial,
             image = ImageUiState.Initial,
-            button = ButtonUiState.Initial,
+            button = ActionButtonUiState.Initial,
         )
         assertEquals(expected, actual)
 

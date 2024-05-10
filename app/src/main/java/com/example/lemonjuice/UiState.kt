@@ -1,13 +1,28 @@
 package com.example.lemonjuice
 
-import com.example.lemonjuice.databinding.ActivityMainBinding
+import android.widget.TextView
+import com.example.lemonjuice.ActionButtonUi.ActionButton
+import com.example.lemonjuice.ActionButtonUi.ActionButtonUiState
+import com.example.lemonjuice.ImageButtonUi.ImageAction
+import com.example.lemonjuice.ImageButtonUi.ImageUiState
+import com.example.lemonjuice.TextViewUi.TitleUiState
 import java.io.Serializable
-import java.lang.IllegalStateException
 
 interface UiState : Serializable {
 
+    fun update (
+        textView: TextView,
+        imageButton: ImageAction,
+        actionButton: ActionButton
+    )
 
-    fun update(binding: ActivityMainBinding)
+    object Empty : UiState  {
+        override fun update(
+            textView: TextView,
+            imageButton: ImageAction,
+            actionButton: ActionButton
+        ) = Unit
+    }
 
    // fun handleAction(juiceViewModel: Actions): UiState
 
@@ -16,9 +31,13 @@ interface UiState : Serializable {
         private val image: ImageUiState,
         private val button: ActionButtonUiState
     ) : UiState {
-        override fun update(binding: ActivityMainBinding) = with(binding) {
+        override fun update(
+            textView: TextView,
+            imageButton: ImageAction,
+            actionButton: ActionButton
+        ) {
             title.update(textView)
-            imageButton.updateUiState(image)
+            image.updateUiState(image)
             button.updateUiState(button)
         }
     }
@@ -27,57 +46,43 @@ interface UiState : Serializable {
         private val title: TitleUiState,
         private val image: ImageUiState,
         private val button: ActionButtonUiState
-    ) : Abstract(title, image, button) {
+    ) : Abstract(title, image, button)
 
-    /*    override fun handleAction(juiceViewModel: Actions): UiState {
-            return juiceViewModel.goToSqueeze()
-        }*/
-    }
 
     data class Squeeze(
         private val title: TitleUiState,
         private val image: ImageUiState,
         private val button: ActionButtonUiState
-    ) : Abstract(title, image, button) {
-
-  /*      override fun handleAction(juiceViewModel: Actions): UiState {
-            throw IllegalStateException()
-        }*/
-    }
+    ) : Abstract(title, image, button)
 
     data class Process(
-        private val title: TitleUiState,
-        private val image: ImageUiState,
-        private val button: ActionButtonUiState
-    ) : Abstract(title, image, button) {
-
-    /*    override fun handleAction(juiceViewModel: Actions): UiState {
-            return juiceViewModel.goToMade()
-        }*/
-
-    }
+     private val title: TitleUiState,
+     private val image: ImageUiState,
+     private val button: ActionButtonUiState
+    ) : Abstract(title, image, button)
 
     data class Made(
-        private val title: TitleUiState,
-        private val image: ImageUiState,
-        private val button: ActionButtonUiState
-    ) : Abstract(title, image, button) {
-
-   /*     override fun handleAction(juiceViewModel: Actions): UiState {
-            return juiceViewModel.goToFinish()
-        }*/
-
-    }
+      private val title: TitleUiState,
+      private val image: ImageUiState,
+      private val button: ActionButtonUiState
+    ) : Abstract(title, image, button)
 
     data class Finish(
+    private val title: TitleUiState,
+    private val image: ImageUiState,
+    private val button: ActionButtonUiState
+    ) : Abstract(title, image, button)
+
+    data class SqueezeUp(
         private val title: TitleUiState,
         private val image: ImageUiState,
-        private val button: ActionButtonUiState
-    ) : Abstract(title, image, button) {
+        private val button: ActionButtonUiState,
+    ) : com.example.lemonjuice.fragmentSqueeze.FragmentUiState.Abstract(title, image, button)
 
-    /*    override fun handleAction(juiceViewModel: Actions): UiState {
-            return juiceViewModel.startAgain()
-        }*/
-    }
+    data class SqueezeOff(
+        private val title: TitleUiState,
+        private val image: ImageUiState,
+        private val button: ActionButtonUiState,
+    ) : com.example.lemonjuice.fragmentSqueeze.FragmentUiState.Abstract(title, image, button)
 }
 

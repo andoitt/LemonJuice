@@ -19,7 +19,7 @@ class ImageUI(
 
     private val interaction = Espresso.onView(
         Matchers.allOf(
-            ViewMatchers.withId(R.id.imageButton),
+            ViewMatchers.withId(R.id.pictureImageButton),
             ViewMatchers.isAssignableFrom(ImageButton::class.java),
             parent,
             ViewMatchers.withParent(withId(rootId)),
