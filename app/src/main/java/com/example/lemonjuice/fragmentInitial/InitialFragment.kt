@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.lemonjuice.main.Navigation
 import com.example.lemonjuice.databinding.FragmentInitialBinding
 import com.example.lemonjuice.fragmentSqueeze.SqueezeFragment
+import com.example.lemonjuice.fragmentSqueeze.SqueezeNavigation
 
 class InitialFragment: Fragment() {
 
@@ -28,7 +29,8 @@ class InitialFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.actionButton.setOnClickListener {
-            (requireActivity() as Navigation).navigate(SqueezeFragment())
+          //  (requireActivity() as Navigation).navigate(SqueezeFragment())
+            (requireActivity() as InitialNavigation).navigateFromInitialScreen()
         }
 
     }
@@ -36,4 +38,9 @@ class InitialFragment: Fragment() {
         super.onDestroy()
         _binding = null
     }
+}
+
+interface InitialNavigation {
+
+    fun navigateFromInitialScreen()
 }

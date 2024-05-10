@@ -42,9 +42,10 @@ class ScenarioTest {
     @get:Rule
     val activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
+
     @Test
     fun caseNumberOne() {
-        var juicePage = JuicePage()
+        val juicePage = JuicePage()
 
         juicePage.checkInitialState()
         activityScenarioRule.scenario.recreate()

@@ -37,8 +37,9 @@ interface UiState : Serializable {
             actionButton: ActionButton
         ) {
             title.update(textView)
-            image.updateUiState(image)
-            button.updateUiState(button)
+            imageButton.updateUiState(image)
+            actionButton.updateActionButton(button)
+
         }
     }
 

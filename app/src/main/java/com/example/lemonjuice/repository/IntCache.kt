@@ -25,17 +25,17 @@ interface IntCache {
 }
 
 interface PermanentStorage {
-    fun save (value: Int, key : String)
-    fun read(key: String, default: Int): Int
+    fun save (value: String, key: String)
+    fun read(key: String, default: String): Int
 
     class Base (
         private val sharedPreferences: SharedPreferences
     ) : PermanentStorage {
-        override fun save(value: Int, key: String) {
+        override fun save(value: String, key: String) {
             sharedPreferences.edit().putInt(key,value).apply()
         }
 
-        override fun read(key: String, default: Int): Int {
+        override fun read(key: String, default: String): Int {
             return sharedPreferences.getInt(key, default)
         }
     }

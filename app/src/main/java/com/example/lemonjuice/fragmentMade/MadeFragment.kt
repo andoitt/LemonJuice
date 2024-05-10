@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.lemonjuice.main.Navigation
 import com.example.lemonjuice.databinding.FragmentMadeBinding
 import com.example.lemonjuice.fragmentFinish.FinishFragment
+import com.example.lemonjuice.fragmentInitial.InitialNavigation
 
 class MadeFragment: Fragment() {
 
@@ -28,7 +29,8 @@ class MadeFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.actionButton.setOnClickListener {
-            (requireActivity() as Navigation).navigate(FinishFragment())
+          //  (requireActivity() as Navigation).navigate(FinishFragment())
+            (requireActivity() as MadeNavigation).navigateFromMadeScreen()
         }
     }
 
@@ -36,4 +38,9 @@ class MadeFragment: Fragment() {
         super.onDestroy()
         _binding = null
     }
+}
+
+interface MadeNavigation {
+
+    fun navigateFromMadeScreen()
 }

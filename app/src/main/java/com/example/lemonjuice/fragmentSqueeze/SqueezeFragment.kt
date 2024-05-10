@@ -43,7 +43,8 @@ class SqueezeFragment : Fragment() {
 
         binding.actionButton.setOnClickListener {
             viewModel.exit()
-            (requireActivity() as Navigation).navigate(MadeFragment())
+          //  (requireActivity() as Navigation).navigate(MadeFragment())
+            (requireActivity() as SqueezeNavigation).navigateFromSqueezeScreen()
         }
 
         binding.pictureImageButton.setOnClickListener {
@@ -58,4 +59,9 @@ class SqueezeFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
+}
+
+interface SqueezeNavigation {
+
+    fun navigateFromSqueezeScreen()
 }
