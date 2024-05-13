@@ -1,10 +1,7 @@
 package com.example.lemonjuice
 
-import com.example.lemonjuice.ActionButtonUi.ActionButtonUiState
-import com.example.lemonjuice.ImageButtonUi.ImageUiState
-import com.example.lemonjuice.TextViewUi.TitleUiState
-import com.example.lemonjuice.fragmentSqueeze.SqueezeViewModel
-import com.example.lemonjuice.repository.Repository
+import com.example.lemonjuice.presentation.squeeze.SqueezeViewModel
+import com.example.lemonjuice.data.Repository
 import org.junit.Test
 
 import org.junit.Assert.*
