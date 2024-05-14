@@ -15,9 +15,6 @@ import com.google.inject.Module
 
 class JuiceApp : Application(), ManageViewModels {
 
-    /* lateinit var mainViewModel: MainViewModel
-     lateinit var viewModel: SqueezeViewModel
-     lateinit var lastScreen: StringCache*/
 
     private lateinit var factory: ManageViewModels
 
@@ -68,20 +65,72 @@ interface ProvideViewModel {
     }
 
     class Make(private val core: Core) : ProvideViewModel {
-        override fun <T : MyViewModel> viewModel(clazz: Class<T>): T = with(core) {
-            return when (clazz) {
-                MainViewModel::class.java -> MainViewModel(MainRepository.Base(lastScreen))
 
-                SqueezeViewModel::class.java -> SqueezeViewModel(
-                    Repository.Base(
-                        lastScreen,
-                        currentTimesClicked,
-                    )
-                )
+        private val error = Error() // єто наша else ветка которая была : и when . и  if else
 
-                else -> throw IllegalStateException("unknown viewModel $clazz go and add it to ProvideViewModel.Make")
-            } as T
+        // Error єто нашe финальное звено - цепочки ( chain ) т.к. кто-то должен быть последним.
+        // И мы его отдаём в следующее звено ( начинаем с него)
+        private val main = ProvideMainViewModel(core, error)
+
+        private val squeeze = ProvideSqueezeViewModel(core, main)
+        override fun <T : MyViewModel> viewModel(clazz: Class<T>): T {
+
+            return squeeze.viewModel(clazz) // -> и выглядит это так: когда нужно будет создать ViewModelky , мы проверяем с этой линии кода,идём в проверку ->
+            // ( return if (clazz == SqueezeViewModel::class.java))  если это SqueezeViewModel я создам б если нет ->
+            //  else    provideOther.viewModel(clazz) - то создаст кто-то другой ( оставшиеся ВьюМодельки)
         }
+    }
+}
+
+class Error : ProvideViewModel {
+    override fun <T : MyViewModel> viewModel(clazz: Class<T>): T {
+        throw IllegalStateException("unknown viewModel $clazz go and add it to ProvideViewModel.Make")
+    }
+}
+
+class ProvideMainViewModel(
+    private val core: Core,
+    private val provideOther: ProvideViewModel
+) : ProvideViewModel {
+    override fun <T : MyViewModel> viewModel(clazz: Class<T>): T {
+        return if (clazz == MainViewModel::class.java)
+            MainModule(core).viewModel() as T
+        else
+            provideOther.viewModel(clazz)
+    }
+}
+
+class ProvideSqueezeViewModel(
+    private val core: Core,
+    private val provideOther: ProvideViewModel
+) : ProvideViewModel {
+    override fun <T : MyViewModel> viewModel(clazz: Class<T>): T {
+        return if (clazz == SqueezeViewModel::class.java)
+            SqueezeModule(core).viewModel() as T
+        else
+            provideOther.viewModel(clazz)
+    }
+}
+
+
+interface Module<T : MyViewModel> {
+
+    fun viewModel(): T
+}
+
+
+class MainModule(private val core: Core) : com.example.lemonjuice.Module<MainViewModel> {
+    override fun viewModel(): MainViewModel {
+        return MainViewModel(MainRepository.Base(core.lastScreen))
+    }
+
+}
+
+class SqueezeModule(private val core: Core) : com.example.lemonjuice.Module<SqueezeViewModel> {
+    override fun viewModel(): SqueezeViewModel = with(core) {
+        return SqueezeViewModel(
+            Repository.Base(lastScreen, currentTimesClicked)
+        )
     }
 }
 
@@ -99,51 +148,11 @@ class Core(context: Context) {
                 name, Context.MODE_PRIVATE
             )
         )
-
         lastScreen = StringCache.Base(
             "lastScreen",
             permanentStorage,
             SqueezeScreen::class.java.canonicalName
         )
-
         currentTimesClicked = IntCache.Base("currentClicks", permanentStorage, 0)
-
     }
 }
-
-/*
-abstract class ProvideAbstract(
-    protected val core: Core,
-    private val nextChain: ProvideViewModel,
-    private val viewModelClass: Class<out MyViewModel>
-) : ProvideViewModel {
-
-    protected abstract fun module(): Module<out MyViewModel>
-
-
-
-}
-
-interface Module < T : MyViewModel> {
-
-    fun viewModel(): T
-}
-
-
-
-class MainModule(private val core: Core) : com.example.lemonjuice.Module<MainViewModel> {
-
-}
-
-class SqueezeModule(private val core: Core) : Module<SqueezeViewModel> {
-
-
-}
-
-class ProvideSqueezeViewModel(
-    core: Core,
-    provideOther: ProvideViewModel,
-): {
-
-}
-*/
